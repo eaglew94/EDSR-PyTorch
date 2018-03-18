@@ -219,11 +219,24 @@ class checkpoint():
         output = quantize(output, rgb_range).mul(rgb_range)
 
         if self.args.save_results:
-            filename = '{}/results/{}x{}_'.format(self.dir, idx + 1, scale)
-            for v, n in (input, 'LR'), (output, 'SR'), (target, 'GT'):
-                tu.save_image(
-                    v.data[0] / self.args.rgb_range,
-                    '{}{}.png'.format(filename, n))
+            # filename = '{}/results/{}x{}_'.format(self.dir, idx + 1, scale)
+            # for v, n in (input, 'LR'), (output, 'SR'), (target, 'GT'):
+            #     tu.save_image(
+            #         v.data[0] / self.args.rgb_range,
+            #         '{}{}.png'.format(filename, n))
+
+            apath = r'C:\wyb\SR\compression\HMDownSampleBmp'
+            filelist=[]
+            for f in os.listdir(apath):
+                try:
+                    filename = os.path.join(apath, f)
+                    filelist.append(filename)
+                except:
+                    pass
+            filename = '{}/results/{}'.format(self.dir, filelist[idx].split('\\')[-1])
+            tu.save_image(
+                output.data[0] / self.args.rgb_range,
+                filename)   #output SR only
 
 def chop_forward(x, model, scale, shave=10, min_size=80000, n_GPUs=1):
     n_GPUs = min(n_GPUs, 4)
