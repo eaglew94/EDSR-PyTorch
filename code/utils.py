@@ -51,7 +51,8 @@ class checkpoint():
         now = datetime.datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
 
         if args.load == '.':
-            if args.save == '.': args.save = now
+            if args.save == '.':
+                args.save = now
             self.dir = '../experiment/' + args.save
         else:
             self.dir = '../experiment/' + args.load
@@ -237,7 +238,7 @@ def chop_forward(x, model, scale, shave=10, min_size=80000, n_GPUs=1):
 
     if w_size * h_size < min_size:
         outputlist = []
-        for i in range(0, 4, n_GPUs):
+        for i in range(0, 4, n_GPUs):   # n_GPUs为步长
             input_batch = torch.cat(inputlist[i:(i + n_GPUs)], dim=0)
             output_batch = model(input_batch)
             outputlist.extend(output_batch.chunk(n_GPUs, dim=0))

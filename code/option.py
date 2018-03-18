@@ -1,6 +1,8 @@
 import argparse
 import template
 
+# when import this file, the following command will be carried out
+
 parser = argparse.ArgumentParser(description='EDSR and MDSR')
 
 parser.add_argument('--debug', action='store_true',
@@ -15,11 +17,12 @@ parser.add_argument('--no_cuda', action='store_true',
                     help='enables CUDA training')
 parser.add_argument('--n_GPUs', type=int, default=1,
                     help='number of GPUs')
+# seed for what?
 parser.add_argument('--seed', type=int, default=1,
                     help='random seed')
 
 # Data specifications
-parser.add_argument('--dir_data', type=str, default='../../../dataset',
+parser.add_argument('--dir_data', type=str, default='../../dataset',
                     help='dataset directory')
 parser.add_argument('--data_train', type=str, default='DIV2K',
                     help='train dataset name')
@@ -29,6 +32,7 @@ parser.add_argument('--n_train', type=int, default=800,
                     help='number of training set')
 parser.add_argument('--n_val', type=int, default=10,
                     help='number of validation set')
+# offset for what?
 parser.add_argument('--offset_val', type=int, default=800,
                     help='validation index offest')
 parser.add_argument('--ext', type=str, default='img',
@@ -56,6 +60,7 @@ parser.add_argument('--act', type=str, default='relu',
                     help='activation function')
 parser.add_argument('--pre_train', type=str, default='.',
                     help='pre-trained model directory')
+# the same description as the former one ?
 parser.add_argument('--extend', type=str, default='.',
                     help='pre-trained model directory')
 parser.add_argument('--n_resblocks', type=int, default=16,
@@ -128,9 +133,8 @@ parser.add_argument('--save_results', action='store_true',
                     help='save output results')
 
 args = parser.parse_args()
-template.setTemplate(args)
-
-args.scale = list(map(lambda x: int(x), args.scale.split('+')))
+template.setTemplate(args)   # set some option here
+args.scale = list(map(lambda x: int(x), args.scale.split('+'))) # scale can be the form like "2+3+4"
 args.quality = args.quality.split('+')
 for i, q in enumerate(args.quality):
     if q != '':

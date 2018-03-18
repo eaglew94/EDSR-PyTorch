@@ -27,7 +27,7 @@ def get_patch(img_in, img_tar, patch_size, scale, multi_scale=False):
 
 def set_channel(img_in, img_tar, n_channel):
     h, w, c = img_tar.shape
-
+    # ensure n_channel equal to the shape of tensor
     def _set_channel(img):
         if n_channel == 1 and c == 3:
             img = np.expand_dims(sc.rgb2ycbcr(img)[:, :, 0], 2)

@@ -13,6 +13,7 @@ import torch
 import torch.utils.data as data
 from torchvision import transforms
 
+#pytorch dataLoader 框架
 class MyImage(data.Dataset):
     def __init__(self, args, train=False):
         self.args = args
