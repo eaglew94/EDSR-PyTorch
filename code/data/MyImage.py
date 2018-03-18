@@ -21,7 +21,7 @@ class MyImage(data.Dataset):
         self.name = 'MyImage'
         self.scale = args.scale
         self.idx_scale = 0
-        apath = '../test'
+        apath = r'C:\wyb\SR\compression\HMDownSampleBmp'
 
         self.filelist = []
         if not train:
@@ -38,7 +38,7 @@ class MyImage(data.Dataset):
         if len(img_in.shape) == 2:
             img_in = np.expand_dims(img_in, 2)
 
-        img_in, img_tar = common.set_channel(img_in, img_in, self.args.n_colors)
+        img_in, img_tar = common.set_channel(img_in, img_in, self.args.n_colors) #  note that img_tar is equal to img_in
         img_tar = misc.imresize(
             img_tar, self.scale[self.idx_scale] * 100, interp='bicubic')
 

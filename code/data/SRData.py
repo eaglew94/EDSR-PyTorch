@@ -104,11 +104,11 @@ class SRData(data.Dataset):
         patch_size = self.args.patch_size
         scale = self.scale[self.idx_scale]
         multi_scale = len(self.scale) > 1
-        if self.train:
+        if self.train:  # generate patches for training
             img_lr, img_hr = common.get_patch(
                 img_lr, img_hr, patch_size, scale, multi_scale=multi_scale)
             img_lr, img_hr = common.augment(img_lr, img_hr)
-        else:
+        else:  # use full image during testing
             ih, iw, c = img_lr.shape
             img_hr = img_hr[0:ih * scale, 0:iw * scale, :]
 
